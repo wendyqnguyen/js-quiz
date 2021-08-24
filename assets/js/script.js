@@ -53,63 +53,60 @@ var buttonEl4 = document.querySelector("#option-4");
 
 var questionCounter = 0;
 
+var timeLeft = 0;
+
+var score = 0;
+
+var questionIdx=0;
+
 var taskStartQuizButtonHandler = function(event) {
   event.preventDefault();
-  //hide promt
-  quizPromptEl.setAttribute('style', 'visibility: hidden');
 
-  // load question
-  loadQuestion();
+
+  //hide prompt
+  quizPromptEl.setAttribute('style', 'visibility: hidden');
 
   //start timer
   countdown();
 
-  //keep loading question while there's still time left
-  
+
+  // if there is time remaining, load a question
+  if (timeLeft > 0){
+    loadQuestion();
+
+  quizPromptEl.setAttribute('style', 'visibility: hidden');
+  buttonEl1.setAttribute('style', 'visibility: visible');
+  buttonEl2.setAttribute('style', 'visibility: visible');
+  buttonEl3.setAttribute('style', 'visibility: visible');
+  buttonEl4.setAttribute('style', 'visibility: visible');
+  }
 };
 
 var loadQuestion = function (){
-  var questionEl = document.createElement('div');
+  // debugger;
+  var questionEl = document.querySelector("#quiz-question");
   var questionText ='';
-  var question = questions[0];
+  var question = questions[questionIdx];
   var choices;
 
   // load question and answer options
-  questiontext.textContent = question.title;
+  questionEl.textContent = question.title;
   
-  for( var i= 0 ; i< questions.length; i++){
-    questionText =  questions[i].title;
-    questionEl.textContent = questionText; 
-    choices = questions[i].choices;
+  choices = questions[questionIdx].choices;
 
-    buttonEl1.textContent = choices[0];
-    buttonEl2.textContent = choices[1];
-    buttonEl3.textContent = choices[2];
-    buttonEl4.textContent = choices[3];
-    
-    console.log(choices);
-    questiontext.textContent = questionText;
-  }
+  buttonEl1.textContent = choices[0];
+  buttonEl2.textContent = choices[1];
+  buttonEl3.textContent = choices[2];
+  buttonEl4.textContent = choices[3];
+  
+  questiontext.textContent = questionText;
+  
 };
 
-// for answer buttons
-// pageContentEl.addEventListener("click", answerButtonHandler);
-var taskButtonHandler = function(event) {
-  // get target element from event
-  var targetEl = event.target;
-
-  if (targetEl.matches(".edit-btn")) {
-    var taskId = targetEl.getAttribute("data-task-id");
-    editTask(taskId);
-  } else if (targetEl.matches(".delete-btn")) {
-    var taskId = targetEl.getAttribute("data-task-id");
-    deleteTask(taskId);
-  }
-};
 
 // Timer that counts down from 75
 function countdown() {
-  var timeLeft = 75;
+timeLeft = 75;
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function() {
@@ -128,12 +125,44 @@ function countdown() {
       timerEl.textContent = '';
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
-      // Call the `displayMessage()` function
-      displayMessage();
     }
   }, 1000);
 }
 
-// create event listen to listen for Start Quiz button
+function displayScore () {
+  
+}
+var checkAnswer = function(event) {
+  // target button clicked
+  var answerBtnEl = event.target;
+  // get the answer selected
+  var answerText = answerBtnEl.textContent;
 
+  // once question is known compare the answer to the text of the button that was selected to determin if the correct answer was chosen
+  // if the correct answer was selected, return
+  if (answerText == questions[questionIdx].answer){
+    score +=11;
+    console.log(true);
+  } else {
+    timeLeft = timeLeft - 10;
+  }
+
+  console.log(score);
+  questionIdx++;
+
+  if (questionIdx<5){
+    loadQuestion();
+  } else{
+    displayScore();
+  }
+  
+  // if the incorrect answer was selected subtract 10 seconds from the timer
+}
+
+// create event listen to listen for Start Quiz button
 startButtonEl.addEventListener("click", taskStartQuizButtonHandler);
+
+buttonEl1.addEventListener("click",checkAnswer);
+buttonEl2.addEventListener("click",checkAnswer);
+buttonEl3.addEventListener("click",checkAnswer);
+buttonEl4.addEventListener("click",checkAnswer);
