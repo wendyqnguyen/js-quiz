@@ -1,62 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Taskinator</title>
-  <link rel="stylesheet" href="./assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">   
+    <title>Javasript Quiz</title>
 </head>
-
 <body>
+    <header>
+        <div class="highscrores" >
+            <a href="./highscores.html">View Highscores</a>
+        </div>
+        <div class="timer">Time: <p id="countdown"></p></div>
+    </header>
 
-  <header>
-    <h1 class="page-title">Taskinator</h1>
-    <p>Click the button below to add a new task!</p>
-    <form id="task-form">
-      <div class="form-group">
-        <input type="text" name="task-name" placeholder="Enter Task Name" />
-      </div>
-      <div class="form-group">
-        <select name="task-type" class="select-dropdown">
-          <option value="" selected disabled>Pick a task type</option>
-          <option value="Print">Print</option>
-          <option value="Web">Web</option>
-          <option value="Mobile">Mobile</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <button class="btn" id="save-task" type="submit">Add Task</button>
-      </div>
-    </form>
-  </header>
-
-  <main class="page-content" id="page-content">
-    <!-- Tasks To Do -->
-    <section class="task-list-wrapper">
-      <h2 class="list-title">Tasks To Do</h2>
-      <ul class="task-list" id="tasks-to-do"></ul>
-    </section>
-
-    <!-- Tasks In Progress -->
-    <section class="task-list-wrapper">
-      <h2 class="list-title">Tasks In Progress</h2>
-      <ul class="task-list" id="tasks-in-progress"></ul>
-    </section>
-
-    <!-- Tasks Completed -->
-    <section class="task-list-wrapper">
-      <h2 class="list-title">Tasks Completed</h2>
-      <ul class="task-list" id="tasks-completed"></ul>
-    </section>
-  </main>
-
-  <footer>
-    &copy;2020 by Taskinator
-  </footer>
-
-  <script src="./assets/js/script.js"></script>
+    <main class="page-content" id="page-content">
+        <div class="quiz-prompt" id="quiz-prompt">
+            <H1>Coding Quiz Challenge</H1>
+            <p>Try to answer the following code-related questions withing the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p><br>
+            <button id="start-button">Start Quiz</button>
+        </div>
+        <div class="quiz-question">
+        </div>
+        <!-- <div class="answers" id="questions">? -->
+            <H2 id="question-text"></H1>
+            <button class="option" id="option-1"></button>
+            <button class="option" id="option-2"></button>
+            <button class="option" id="option-3"></button>
+            <button class="option" id="option-4"></button>
+        <!-- </div> -->
+        <div class="quiz-questions">
+        </div>
+    </main>
+    <script src="./assets/js/script.js"></script>
 </body>
-
 </html>
