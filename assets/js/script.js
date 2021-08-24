@@ -1,3 +1,6 @@
+// initialize highscore to 0
+localStorage.setItem('highscore', '0');
+
 // create a page element
 var pageContentEl = document.querySelector("#page-content");
 
@@ -51,65 +54,67 @@ var buttonEl2 = document.querySelector("#option-2");
 var buttonEl3 = document.querySelector("#option-3");
 var buttonEl4 = document.querySelector("#option-4");
 
+// create element for the scoring section
+var scoringSectionEl = document.querySelector("#scoring");
+
+//create element for saving high score/initials
+var submitEl = document.querySelector("#save-initials");
+
 var questionCounter = 0;
+
+var timeLeft = 0;
+
+var score = 0;
+
+var questionIdx=0;
 
 var taskStartQuizButtonHandler = function(event) {
   event.preventDefault();
-  //hide promt
-  quizPromptEl.setAttribute('style', 'visibility: hidden');
 
-  // load question
-  loadQuestion();
+
+  //hide prompt
+  quizPromptEl.setAttribute('style', 'visibility: hidden');
 
   //start timer
   countdown();
 
-  //keep loading question while there's still time left
-  
+
+  // if there is time remaining, load a question
+  if (timeLeft > 0){
+
+    quizPromptEl.setAttribute('style', 'visibility: hidden');
+    quizEl.setAttribute('style', 'visibility: visible');
+    questiontext.setAttribute('style', 'visibility: visible');
+    buttonEl1.setAttribute('style', 'visibility: visible');
+    buttonEl2.setAttribute('style', 'visibility: visible');
+    buttonEl3.setAttribute('style', 'visibility: visible');
+    buttonEl4.setAttribute('style', 'visibility: visible');
+    loadQuestion();
+
+  }
 };
 
 var loadQuestion = function (){
-  var questionEl = document.createElement('div');
-  var questionText ='';
-  var question = questions[0];
+  // debugger;
+  var question = questions[questionIdx];
   var choices;
 
   // load question and answer options
-  questiontext.textContent = question.title;
+  questiontext.innerHTML = question.title;
   
-  for( var i= 0 ; i< questions.length; i++){
-    questionText =  questions[i].title;
-    questionEl.textContent = questionText; 
-    choices = questions[i].choices;
+  choices = questions[questionIdx].choices;
 
-    buttonEl1.textContent = choices[0];
-    buttonEl2.textContent = choices[1];
-    buttonEl3.textContent = choices[2];
-    buttonEl4.textContent = choices[3];
-    
-    console.log(choices);
-    questiontext.textContent = questionText;
-  }
-};
+  buttonEl1.textContent = choices[0];
+  buttonEl2.textContent = choices[1];
+  buttonEl3.textContent = choices[2];
+  buttonEl4.textContent = choices[3];
+  
+}
 
-// for answer buttons
-// pageContentEl.addEventListener("click", answerButtonHandler);
-var taskButtonHandler = function(event) {
-  // get target element from event
-  var targetEl = event.target;
-
-  if (targetEl.matches(".edit-btn")) {
-    var taskId = targetEl.getAttribute("data-task-id");
-    editTask(taskId);
-  } else if (targetEl.matches(".delete-btn")) {
-    var taskId = targetEl.getAttribute("data-task-id");
-    deleteTask(taskId);
-  }
-};
 
 // Timer that counts down from 75
 function countdown() {
-  var timeLeft = 75;
+timeLeft = 75;
 
   // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
   var timeInterval = setInterval(function() {
@@ -128,12 +133,68 @@ function countdown() {
       timerEl.textContent = '';
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
-      // Call the `displayMessage()` function
-      displayMessage();
     }
   }, 1000);
 }
 
-// create event listen to listen for Start Quiz button
+function displayScore () {
+  // hide quiz section
+    quizEl.setAttribute('style', 'visibility: hidden');
+    questiontext.setAttribute('style', 'visibility: hidden');
+    buttonEl1.setAttribute('style', 'visibility: hidden');
+    buttonEl2.setAttribute('style', 'visibility: hidden');
+    buttonEl3.setAttribute('style', 'visibility: hidden');
+    buttonEl4.setAttribute('style', 'visibility: hidden');
+  //show scoring section
+  scoringSectionEl.setAttribute('style', 'visibility: visible');
+  var scoreEl = document.querySelector("#score");
+  scoreEl.textContent = score;
+}
+var checkAnswer = function(event) {
+  // target button clicked
+  var answerBtnEl = event.target;
+  // get the answer selected
+  var answerText = answerBtnEl.textContent;
 
+  // once question is known compare the answer to the text of the button that was selected to determin if the correct answer was chosen
+  // if the correct answer was selected, return
+  if (answerText == questions[questionIdx].answer){
+    score +=11;
+  } else {
+    timeLeft = timeLeft - 10;
+  }
+
+  questionIdx++;
+
+  if (questionIdx<5){
+    loadQuestion();
+  } else{
+    displayScore();
+  }
+  
+  // if the incorrect answer was selected subtract 10 seconds from the timer
+}
+
+function saveHighScore(event) {
+  event.preventDefault();
+  
+  // Retrieve high score
+  var localHighscore = JSON.parse(localStorage.getItem('highscore'));
+  // if new score is higher that locally stored high score, then replace locally stored high score
+  if (score> localHighscore){
+    localStorage.setItem('highscore', JSON.stringify(score));
+  }
+  window.location.href = "highscores.html";
+}
+
+// create event listen to listen for Start Quiz button
 startButtonEl.addEventListener("click", taskStartQuizButtonHandler);
+
+// event listeners for answer buttons
+buttonEl1.addEventListener("click",checkAnswer);
+buttonEl2.addEventListener("click",checkAnswer);
+buttonEl3.addEventListener("click",checkAnswer);
+buttonEl4.addEventListener("click",checkAnswer);
+
+// create event listener for the submit button to save high score
+submitEl.addEventListener("click",saveHighScore);
