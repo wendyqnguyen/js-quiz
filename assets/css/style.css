@@ -21,3 +21,25 @@ h1 {
 .timer {
     text-align: right;
 }
+button {
+    background-color: #2e1f6c; 
+    border: none;
+    margin: 5px;
+    color: white; /* White text */
+    border-radius: 12px;
+}
+
+button:hover{
+    background: #b268e0;
+}
+.answers-btn-group button {
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    width: 50%; /* Set a width if needed */
+    display: block; /* Make the buttons appear below each other */
+    border-radius: 12px;
+  }
+
+  .high-score-display{
+      background-color: #d8d3e7;
+  }

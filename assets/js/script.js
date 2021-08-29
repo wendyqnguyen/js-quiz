@@ -102,10 +102,10 @@ var loadQuestion = function (){
   
   choices = questions[questionIdx].choices;
 
-  buttonEl1.textContent = choices[0];
-  buttonEl2.textContent = choices[1];
-  buttonEl3.textContent = choices[2];
-  buttonEl4.textContent = choices[3];
+  buttonEl1.textContent = "1. " + choices[0];
+  buttonEl2.textContent = "2. " + choices[1];
+  buttonEl3.textContent = "3. " + choices[2];
+  buttonEl4.textContent = "4. " + choices[3];
   
 }
 

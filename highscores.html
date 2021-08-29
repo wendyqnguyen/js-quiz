@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/style.css">   
+    <title>High Scores</title>
 </head>
 <body>
-        <section class="score-board-wrapper">
-        <h2 class="score-board-title">High Scores</h2>
-        <span id="high-score"></span>
-      </section>
-      <div class="button-row">
-        <button class="btn" id="go-back" type="submit">Go Back</button>
-        <button class="btn" id="clear-score" type="submit">Clear high scores</button>
-      </div>
+    <div class="container">
+    <div class ="row">
+        <div class="score-board-wrapper">
+            <h2 class="score-board-title">High Scores</h2>
+            <div class="high-score-display">
+                <span id="high-score"></span>
+            </div>
+        </div>
+    </div>
+    <div class ="row">
+        <div class="button-row">
+            <button class="btn" id="go-back" type="submit">Go Back</button>
+            <button class="btn" id="clear-score" type="submit">Clear high scores</button>
+        </div>
+    </div>
+</div>
 </body>
 <script src="./assets/js/scoreboard.js"></script>
 </html>
