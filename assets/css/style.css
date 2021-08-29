@@ -29,6 +29,10 @@ button {
     border-radius: 12px;
 }
 
+.start-button{
+    border-radius: 12px;
+}
+
 button:hover{
     background: #b268e0;
 }
@@ -40,6 +44,10 @@ button:hover{
     border-radius: 12px;
   }
 
+  .highscrores a{
+      color: #b268e0;
+      text-decoration: none;
+  }
   .high-score-display{
       background-color: #d8d3e7;
   }

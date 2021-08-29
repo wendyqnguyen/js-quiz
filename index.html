@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./assets/css/style.css">   
     <title>Javasript Quiz</title>
     <link
@@ -29,11 +29,16 @@
             </div>
             <div class="answers-btn-group" id="answers">
                 <button class="option" id="option-1" style="display: none"></button>
+                <br>
                 <button class="option" id="option-2" style="display: none"></button>
+                <br>
                 <button class="option" id="option-3" style="display: none"></button>
+                <br>
                 <button class="option" id="option-4" style="display: none"></button>
+                <div class="wrong-message" id="wrong-message">
+                </div>
             </div>
-            </div>
+            
             <div class="scoring" id="scoring" style="display: none">
                 <h1 class="done-alert">All Done!</h1>
                 <p>Your final score is <span id="score"></span></p>

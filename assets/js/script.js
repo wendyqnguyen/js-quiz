@@ -66,6 +66,8 @@ var score = 0;
 
 var questionIdx=0;
 
+var previousAnswerCorrect = true;
+
 var startQuizButtonHandler = function(event) {
   event.preventDefault();
 
@@ -107,6 +109,7 @@ var loadQuestion = function (){
   buttonEl3.textContent = "3. " + choices[2];
   buttonEl4.textContent = "4. " + choices[3];
   
+  //if the previous question was answered incorrectly, display "Wrong!" message on pa
 }
 
 
@@ -157,8 +160,9 @@ var checkAnswer = function(event) {
 
   // once question is known compare the answer to the text of the button that was selected to determin if the correct answer was chosen
   // if the correct answer was selected, return
-  if (answerText == questions[questionIdx].answer){
+  if (answerText.includes(questions[questionIdx].answer)){
     score +=11;
+    previousAnswerCorrect = true;
   } else {
     timeLeft = timeLeft - 10;
   }

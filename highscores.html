@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./assets/css/style.css">   
-    <title>High Scores</title>
+    <title>High Score</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
 </head>
 <body>
-    <div class="container">
-    <div class ="row">
-        <div class="score-board-wrapper">
-            <h2 class="score-board-title">High Scores</h2>
-            <div class="high-score-display">
-                <span id="high-score"></span>
-            </div>
+    <main class="page-content" id="page-content">
+        <div class="container">
+            <!-- <div class ="row"> -->
+                <div class="score-board-wrapper">
+                    <h2 class="score-board-title">High Score</h2>
+                    <div class="high-score-display">
+                        <span id="high-score"></span>
+                    </div>
+                </div>
+            <!-- </div> -->
+            <!-- <div class ="row"> -->
+                <div class="button-row">
+                    <button class="btn" id="go-back" type="submit">Go Back</button>
+                    <button class="btn" id="clear-score" type="submit">Clear high scores</button>
+                </div>
+            <!-- </div> -->
         </div>
-    </div>
-    <div class ="row">
-        <div class="button-row">
-            <button class="btn" id="go-back" type="submit">Go Back</button>
-            <button class="btn" id="clear-score" type="submit">Clear high scores</button>
-        </div>
-    </div>
-</div>
+    </main>
 </body>
 <script src="./assets/js/scoreboard.js"></script>
 </html>
