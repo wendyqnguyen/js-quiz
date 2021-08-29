@@ -1,6 +1,3 @@
-// initialize highscore to 0
-localStorage.setItem('highscore', '0');
-
 // create a page element
 var pageContentEl = document.querySelector("#page-content");
 
@@ -59,6 +56,7 @@ var scoringSectionEl = document.querySelector("#scoring");
 
 //create element for saving high score/initials
 var submitEl = document.querySelector("#save-initials");
+var initialsInputEl = document.querySelector("#initials");
 
 var questionCounter = 0;
 
@@ -68,12 +66,12 @@ var score = 0;
 
 var questionIdx=0;
 
-var taskStartQuizButtonHandler = function(event) {
+var startQuizButtonHandler = function(event) {
   event.preventDefault();
 
 
   //hide prompt
-  quizPromptEl.setAttribute('style', 'visibility: hidden');
+  quizPromptEl.setAttribute('style', 'display: none');
 
   //start timer
   countdown();
@@ -82,13 +80,13 @@ var taskStartQuizButtonHandler = function(event) {
   // if there is time remaining, load a question
   if (timeLeft > 0){
 
-    quizPromptEl.setAttribute('style', 'visibility: hidden');
-    quizEl.setAttribute('style', 'visibility: visible');
-    questiontext.setAttribute('style', 'visibility: visible');
-    buttonEl1.setAttribute('style', 'visibility: visible');
-    buttonEl2.setAttribute('style', 'visibility: visible');
-    buttonEl3.setAttribute('style', 'visibility: visible');
-    buttonEl4.setAttribute('style', 'visibility: visible');
+    quizPromptEl.setAttribute('style', 'display: none');
+    quizEl.setAttribute('style', 'display: flex');
+    questiontext.setAttribute('style', 'display: flex');
+    buttonEl1.setAttribute('style', 'display: flex');
+    buttonEl2.setAttribute('style', 'display: flex');
+    buttonEl3.setAttribute('style', 'display: flex');
+    buttonEl4.setAttribute('style', 'display: flex');
     loadQuestion();
 
   }
@@ -124,32 +122,33 @@ timeLeft = 75;
       timerEl.textContent = timeLeft;
       // Decrement `timeLeft` by 1
       timeLeft--;
-    } else if (timeLeft === 1) {
-      // When `timeLeft` is equal to 1, rename to 'second' instead of 'seconds'
-      timerEl.textContent = timeLeft;
-      timeLeft--;
     } else {
       // Once `timeLeft` gets to 0, set `timerEl` to an empty string
       timerEl.textContent = '';
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
+      //do something
+      window.alert("Times")
+      window.location.href = "highscores.html";
     }
   }, 1000);
 }
 
 function displayScore () {
   // hide quiz section
-    quizEl.setAttribute('style', 'visibility: hidden');
-    questiontext.setAttribute('style', 'visibility: hidden');
-    buttonEl1.setAttribute('style', 'visibility: hidden');
-    buttonEl2.setAttribute('style', 'visibility: hidden');
-    buttonEl3.setAttribute('style', 'visibility: hidden');
-    buttonEl4.setAttribute('style', 'visibility: hidden');
+    quizEl.setAttribute('style', 'display: none');
+    questiontext.setAttribute('style', 'display: none');
+    buttonEl1.setAttribute('style', 'display: none');
+    buttonEl2.setAttribute('style', 'display: none');
+    buttonEl3.setAttribute('style', 'display: none');
+    buttonEl4.setAttribute('style', 'display: none');
   //show scoring section
-  scoringSectionEl.setAttribute('style', 'visibility: visible');
+  scoringSectionEl.setAttribute('style', 'display: flex');
   var scoreEl = document.querySelector("#score");
   scoreEl.textContent = score;
 }
+
+
 var checkAnswer = function(event) {
   // target button clicked
   var answerBtnEl = event.target;
@@ -175,20 +174,35 @@ var checkAnswer = function(event) {
   // if the incorrect answer was selected subtract 10 seconds from the timer
 }
 
-function saveHighScore(event) {
+function saveHighScore(event) {0
   event.preventDefault();
-  
+
   // Retrieve high score
-  var localHighscore = JSON.parse(localStorage.getItem('highscore'));
+  var highscore = JSON.parse(localStorage.getItem('highscores'));
+
+  var initials = document.querySelector("input[name='initials']").value;
+
+  var newScore = {
+    initials: initials,
+    score: score
+  };
+
+
+//if there are no existing high scores saved to local storage, add the current high score
+if (!highscore){
+  localStorage.setItem("highscores", JSON.stringify(newScore));
+} else{
+  // else, compare the current score to the high score
   // if new score is higher that locally stored high score, then replace locally stored high score
-  if (score> localHighscore){
-    localStorage.setItem('highscore', JSON.stringify(score));
+  if (newScore.score > highscore.score){
+    localStorage.setItem('highscores', JSON.stringify(newScore));
   }
+}
   window.location.href = "highscores.html";
 }
 
 // create event listen to listen for Start Quiz button
-startButtonEl.addEventListener("click", taskStartQuizButtonHandler);
+startButtonEl.addEventListener("click", startQuizButtonHandler);
 
 // event listeners for answer buttons
 buttonEl1.addEventListener("click",checkAnswer);

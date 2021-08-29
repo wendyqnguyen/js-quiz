@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/style.css">   
     <title>Javasript Quiz</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
 </head>
 <body>
     <header>
-        <div class="highscrores" >
-            <a href="./highscores.html">View Highscores</a>
-        </div>
-        <div class="timer">Time: <p id="countdown"></p></div>
+            <div class="highscrores" >
+                <a href="./highscores.html">View Highscores</a>
+            </div>
+            <div class="timer" >Time: <p id="countdown"></p></div>
     </header>
 
     <main class="page-content" id="page-content">
@@ -24,12 +27,12 @@
         </div>
         <div class="quiz-questions" id="quiz-questions">
             <H2 id="question-text"></H1>
-            <button class="option" id="option-1" style="visibility: hidden;"></button>
-            <button class="option" id="option-2" style="visibility: hidden;"></button>
-            <button class="option" id="option-3" style="visibility: hidden;"></button>
-            <button class="option" id="option-4" style="visibility: hidden;"></button>
+            <button class="option" id="option-1" style="display: none"></button>
+            <button class="option" id="option-2" style="display: none"></button>
+            <button class="option" id="option-3" style="display: none"></button>
+            <button class="option" id="option-4" style="display: none"></button>
         </div>
-        <div class="scoring" id="scoring" style="visibility: hidden;">
+        <div class="scoring" id="scoring" style="display: none">
             <h1 class="done-alert">All Done!</h1>
             <p>Your final score is <span id="score"></span></p>
             <form id="initials-form">
