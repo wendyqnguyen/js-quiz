@@ -71,30 +71,27 @@ var previousAnswerCorrect = true;
 var startQuizButtonHandler = function(event) {
   event.preventDefault();
 
+  //start timer
+  countdown();
 
   //hide prompt
   quizPromptEl.setAttribute('style', 'display: none');
 
-  //start timer
-  countdown();
-
-
   // if there is time remaining, load a question
   if (timeLeft > 0){
 
-    quizPromptEl.setAttribute('style', 'display: none');
+    loadQuestion();
     quizEl.setAttribute('style', 'display: flex');
     questiontext.setAttribute('style', 'display: flex');
     buttonEl1.setAttribute('style', 'display: flex');
     buttonEl2.setAttribute('style', 'display: flex');
     buttonEl3.setAttribute('style', 'display: flex');
     buttonEl4.setAttribute('style', 'display: flex');
-    loadQuestion();
 
   }
 };
 
-var loadQuestion = function (){
+loadQuestion = function (){
   // debugger;
   var question = questions[questionIdx];
   var choices;
@@ -131,7 +128,7 @@ timeLeft = 75;
       // Use `clearInterval()` to stop the timer
       clearInterval(timeInterval);
       //do something
-      window.alert("Times")
+      window.alert("Times up!")
       window.location.href = "highscores.html";
     }
   }, 1000);
@@ -204,6 +201,7 @@ if (!highscore){
 }
   window.location.href = "highscores.html";
 }
+
 
 // create event listen to listen for Start Quiz button
 startButtonEl.addEventListener("click", startQuizButtonHandler);

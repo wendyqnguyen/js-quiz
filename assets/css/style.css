@@ -51,3 +51,11 @@ button:hover{
   .high-score-display{
       background-color: #d8d3e7;
   }
+
+  .page {
+      display: flex;
+      justify-content: center;
+      padding: 90px 90px 0px 20px;
+  }
+
+  
