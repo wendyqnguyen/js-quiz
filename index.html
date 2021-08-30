@@ -14,7 +14,6 @@
 <body class="page">
 
     <main class="page-content" id="page-content">
-        <div class="container">
            
             <div class="highscrores" >
                 <a href="./highscores.html">View Highscores</a>
@@ -41,15 +40,17 @@
                 <div class="wrong-message" id="wrong-message">
                 </div>
             </div>
-            
+            <div class="incorrect " id="incorrect" style="display: none">
+                <hr>
+                <h2>Incorrect!</h2>
+            </div>
+            <div class="correct " id="correct" style="display: none">
+                <hr>
+                <h2>Correct!</h2>
+            </div>
             <div class="scoring " id="scoring" style="display: none">
-                <div class="row">
                     <h1>All Done!</h1>
-                </div>
-                <div class="row">
                     <p>Your final score is <span id="score"></span></p>
-                </div>
-                <div class="row">
                     <form id="initials-form">
                         <div class="form-group">
                             <p>Enter Initials:</p><input type="text" name="initials"/>
@@ -58,9 +59,7 @@
                             <button class="btn" id="save-initials" type="submit">Submit</button>
                         </div>
                     </form>
-                </div>
             </div>
-        </div>
     </main>
     <script src="./assets/js/script.js"></script>
     

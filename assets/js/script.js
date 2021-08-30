@@ -51,12 +51,17 @@ var buttonEl2 = document.querySelector("#option-2");
 var buttonEl3 = document.querySelector("#option-3");
 var buttonEl4 = document.querySelector("#option-4");
 
+// create element for answer status
+var incorrectEl = document.querySelector("#incorrect");
+var correctEl = document.querySelector("#correct");
+
 // create element for the scoring section
 var scoringSectionEl = document.querySelector("#scoring");
 
 //create element for saving high score/initials
 var submitEl = document.querySelector("#save-initials");
 var initialsInputEl = document.querySelector("#initials");
+var initialsFormEl = document.querySelector("#initials-form");
 
 var questionCounter = 0;
 
@@ -142,10 +147,30 @@ function displayScore () {
     buttonEl2.setAttribute('style', 'display: none');
     buttonEl3.setAttribute('style', 'display: none');
     buttonEl4.setAttribute('style', 'display: none');
+    incorrectEl.setAttribute('style', 'display: none');
+    correctEl.setAttribute('style', 'display: none');
+
   //show scoring section
   scoringSectionEl.setAttribute('style', 'display: flex');
   var scoreEl = document.querySelector("#score");
   scoreEl.textContent = score;
+
+   // Retrieve high score
+   var highscore = JSON.parse(localStorage.getItem('highscores'));
+
+   var initials = document.querySelector("input[name='initials']").value;
+ 
+   var newScore = {
+     initials: initials,
+     score: score
+   };
+ 
+ 
+ //if there are no existing high scores saved to local storage, add the current high score
+ if (newScore.score <= highscore.score){
+  initialsFormEl.setAttribute('style', 'display: none');
+ }
+
 }
 
 
@@ -160,8 +185,12 @@ var checkAnswer = function(event) {
   if (answerText.includes(questions[questionIdx].answer)){
     score +=11;
     previousAnswerCorrect = true;
+    incorrectEl.setAttribute('style', 'display: none');
+    correctEl.setAttribute('style', 'display: flex');
   } else {
     timeLeft = timeLeft - 10;
+    incorrectEl.setAttribute('style', 'display: flex');
+    correctEl.setAttribute('style', 'display: none');
   }
 
   questionIdx++;
